@@ -1,18 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "NodeNext", // Changed to NodeNext
-    "moduleResolution": "NodeNext",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
     "skipLibCheck": true,
-    "allowJs": true,
-    "outDir": "../dist",
-    "importHelpers": true
-    // Removed outFile, adjust if necessary
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["dist"],
-  "extends": "@tsconfig/node16/tsconfig.json"
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

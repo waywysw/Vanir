@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "NodeNext", // Changed to NodeNext
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "outDir": "../dist-server",
+    "importHelpers": true
+    // Removed outFile, adjust if necessary
+  },
+  "exclude": ["dist"],
+  "extends": "@tsconfig/node16/tsconfig.json"
+}
