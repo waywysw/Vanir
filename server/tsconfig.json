@@ -14,5 +14,4 @@
     // Removed outFile, adjust if necessary
   },
   "exclude": ["dist"],
-  "extends": "@tsconfig/node16/tsconfig.json"
 }

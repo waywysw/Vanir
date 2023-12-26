@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "tsc && node dist-server/index.js",
-    "dev": "nodemon server/index.ts"
+    "server": "cd server && tsc && cd ../ && node dist-server/index.js",
+    "dev": "concurrently \"vite\" \"npm run server\""
   },
   "type": "module",
   "dependencies": {
