@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, redirect } from 'react-router-dom';
-import NavBar from '../components/shared/NavBar';
-import HomePage from './home';
+import NavBar from './components/shared/NavBar';
+import HomePage from './pages/home';
 
 function ScrollToTop() {
 	const location = useLocation();
