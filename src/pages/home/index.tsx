@@ -6,6 +6,9 @@ const HomePage = () => {
     const [image, setImage] = useState('');
     const [tags, setTags] = useState('');
     const [caption, setCaption] = useState('')
+    const [newFolderName, setNewFolderName] = useState('');
+    const [newImageFile, setNewImageFile] = useState(null);
+
     const [showBigImage, setShowBigImage] = useState<boolean>(false)
 
     useEffect(() => {
@@ -96,12 +99,11 @@ const HomePage = () => {
             <div className='w-full h-[90vh] flex flex-col justify-center items-center gap-2 md:p-4 text-base-content'>
                 <div className='rounded-box w-full h-full bg-base-300 p-4 flex flex-col md:flex-row gap-2'>
                     <div className='bg-base-200 p-2 md:w-1/2 h-full min-h-[30vh] overflow-y-scroll gap-2 flex flex-col'>
-                        <h3 className='font-semibold mb-2'>Folders</h3>
-                        <button onClick={refreshFolders} className='dy-btn dy-btn-accent'>Refresh Folders</button>
+                        <h3 className='font-semibold mb-2 flex flex-row justify-between'>Folders <button onClick={refreshFolders} className='dy-btn dy-btn-outline dy-btn-sm'>Refresh Folders</button></h3>
                         {folders.map(folder => {
                             return (
                                 <span
-                                className='dy-btn dy-btn-secondary line-clamp-1 max-w-full text-center items-center flex flex-row justify-between'
+                                className={'dy-btn dy-btn-outline line-clamp-1 max-w-full text-center items-center flex flex-row justify-between ' + (folder.name === selectedFolder ? 'dy-btn-active' : '')}
                                 key={folder.name}
                                 onClick={() => handleFolderClick(folder.name)}>
                                 {folder.name}
@@ -117,14 +119,20 @@ const HomePage = () => {
                                 <img src={image} alt="Selected" className='rounded-box max-w-96 object-cover'/>
                             </div>
                             <div className='flex flex-col w-full gap-2'>
-                                <label>Tags</label>
+                                <span className='flex flex-row justify-between align-bottom'>
+                                    Tags
+                                    <button onClick={() => console.log('Click!')} className='dy-btn dy-btn-outline dy-btn-xs' disabled>Auto Tag</button>
+                                </span>
                                 <textarea
                                     className='dy-textarea dy-textarea-bordered'
                                     value={tags} 
                                     onChange={(e) => setTags(e.target.value)}
                                 />
                                 <button onClick={() => saveTags(selectedFolder, tags)} className='dy-btn dy-btn-primary'>Save Tags</button>
-                                <label>Caption</label>
+                                <span className='flex flex-row justify-between align-bottom'>
+                                    Caption
+                                    <button onClick={() => console.log('Click!')} className='dy-btn dy-btn-outline dy-btn-xs' disabled>Auto Caption</button>
+                                </span>
                                 <textarea
                                     className='dy-textarea dy-textarea-bordered'
                                     value={caption} 
