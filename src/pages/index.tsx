@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, redirect } from 'react-router-dom';
 import NavBar from '../components/shared/NavBar';
+import HomePage from './home';
 
 function ScrollToTop() {
 	const location = useLocation();
@@ -21,6 +22,7 @@ export default function App(){
 				<div className='main-content mb-[64px] md:mb-0'>
 					<Routes>
                         <Route path='/*' element={<Navigate to='/home' />} />
+						<Route path='/home' element={<HomePage/>} />
 					</Routes>
 				</div>
 			</Router>
