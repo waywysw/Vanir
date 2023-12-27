@@ -15,6 +15,39 @@ const HomePage = () => {
             .catch(error => console.error('Error fetching folders:', error));
     }, []);
 
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'ArrowRight') {
+                navigateFolders(1);
+            } else if (event.key === 'ArrowLeft') {
+                navigateFolders(-1);
+            }
+        };
+    
+        window.addEventListener('keydown', handleKeyDown);
+    
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [selectedFolder, folders]); // Add selectedFolder and folders as dependencies
+
+    const navigateFolders = (direction: number) => {
+        const currentIndex = folders.findIndex(folder => folder.name === selectedFolder);
+        if (currentIndex !== -1) {
+            const nextIndex = currentIndex + direction;
+            if (nextIndex >= 0 && nextIndex < folders.length) {
+                handleFolderClick(folders[nextIndex].name);
+            }
+        }
+    };
+
+    const refreshFolders = () => {
+        fetch('/api/data-folder/scan')
+            .then(response => response.json())
+            .then(data => setFolders(data))
+            .catch(error => console.error('Error fetching folders:', error));
+    };
+
     const handleFolderClick = (folderName: string) => {
         setSelectedFolder(folderName);
         fetch(`/api/folder/${folderName}`)
@@ -64,10 +97,11 @@ const HomePage = () => {
                 <div className='rounded-box w-full h-full bg-base-300 p-4 flex flex-col md:flex-row gap-2'>
                     <div className='bg-base-200 p-2 md:w-1/2 h-full min-h-[30vh] overflow-y-scroll gap-2 flex flex-col'>
                         <h3 className='font-semibold mb-2'>Folders</h3>
+                        <button onClick={refreshFolders} className='dy-btn dy-btn-accent'>Refresh Folders</button>
                         {folders.map(folder => {
                             return (
                                 <span
-                                className='dy-btn dy-btn-primary line-clamp-1 max-w-full text-center items-center flex flex-row justify-between'
+                                className='dy-btn dy-btn-secondary line-clamp-1 max-w-full text-center items-center flex flex-row justify-between'
                                 key={folder.name}
                                 onClick={() => handleFolderClick(folder.name)}>
                                 {folder.name}

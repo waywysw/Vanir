@@ -178,3 +178,23 @@ expressApp.post('/folder/:folderName/save-caption', async (req, res) => {
       res.status(500).send(error.message);
   }
 })
+
+// route that accepts an image, and creates a new folder with the image inside, and with a blank tags.txt file
+expressApp.post('/folder/create', upload.single('image'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+
+  const folderName = req.body.folderName;
+  const folderPath = path.join(dataPath, folderName);
+  const textFile = `tags.txt`; // Assuming the text file has the same name as the folder
+
+  try {
+    await fs.promises.mkdir(folderPath);
+    await fs.promises.writeFile(path.join(folderPath, textFile), '');
+    await fs.promises.rename(path.join(uploadsPath, req.file.originalname), path.join(folderPath, req.file.originalname));
+    res.json({ message: 'Folder created successfully.' });
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+})
